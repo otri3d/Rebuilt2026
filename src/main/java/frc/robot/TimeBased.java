@@ -28,36 +28,54 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * a teleop periodic function.
  */
 public class TimeBased extends TimedRobot {
-  private final DifferentialDrive m_robotDrive;
+  private final DifferentialDrive m_robotDrive; //Used for drivetrain
 
+  //Replace IDs later on, subject to change depending on elec (Cass)
   private final SparkMax m_leftMotor1 = new SparkMax(9, kBrushless);
   private final SparkMax m_leftMotor2 = new SparkMax(1, kBrushless);
   private final SparkMax m_rightMotor1 = new SparkMax(3, kBrushless);
   private final SparkMax m_rightMotor2 = new SparkMax(4, kBrushless);
 
-  private final XboxController m_DriverController;
-  private final XboxController m_OperatorController;
+  private final SparkMax m_intake = new SparkMax(6, kBrushless);
+  private final SparkMax m_shooter = new SparkMax(7, kBrushless);
 
-  /** Called once at the beginning of the robot program. */
+  //Controller Variable
+  private final XboxController m_controller;
+
+  /** Timer Based Robot Constructor. */
   public TimeBased() {
-    // We need to invert one side of the drivetrain so that positive voltages
-    // result in both sides moving forward. Depending on how your robot's
-    // gearbox is constructed, you might have to invert the left side instead.
-    m_ClawSolenoid.set(Value.kForward);
-    //m_OperatorController = new PS4Controller(1);
-    m_DriverController = new XboxController(0);
+    m_controller = new XboxController(0);
 
+    //AWD, Left motors must follow together, same with right
     m_leftMotor2.follow(m_leftMotor1);
     m_rightMotor2.follow(m_rightMotor1);
 
     m_robotDrive = new DifferentialDrive(m_leftMotor1::set, m_rightMotor1::set);
   }
 
+  /** Overridden teleop periodic function, This will be executed at 50Hz/20ms */
   @Override
   public void teleopPeriodic() {
-    m_robotDrive.tankDrive(-m_DriverController.getLeftY(), -m_DriverController.getRightY());
+    //Tank Drive Controls
+    m_robotDrive.tankDrive(-m_controller.getLeftY(), -m_controller.getRightY());
 
-    /*
+    // Ball intake. Suck balls with LT
+    if (m_OperatorController.getLeftTriggerButtonPressed()) {
+      m_intake.set(0.8);
+    }
+    else{
+      m_intake.set(0);
+    }
+
+    // Shooter conditional. When RT is pressed, shooter activates
+    if (m_OperatorController.getRightTriggerButtonPressed()) {
+      m_intake.set(0.8); //Test
+    }
+    else{
+      m_intake.set(0);
+    }
+
+    /* Temp code from last year
     m_rotateLowerLeft.set(m_OperatorController.getLeftY());
     m_rorateUpeer.set(m_OperatorController.getRightY() * 0.4);
 
