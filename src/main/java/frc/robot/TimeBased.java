@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 /**
  * This is the TimeBased class that will be used for backup if the command
  * project doesn't work as intended. This uses a TimeBased constructor and
@@ -33,13 +35,17 @@ public class TimeBased extends TimedRobot {
 
   //Replace IDs later on, subject to change depending on elec (Cass)
   // Follow through FW.
+  //SparkMax
   private final SparkMax m_leftMotor = new SparkMax(9, MotorType.kBrushless);
   private final SparkMax m_rightMotor = new SparkMax(3, MotorType.kBrushless);
-  private final SparkMax m_intake = new SparkMax(6, MotorType.kBrushless);
-  private final SparkMax m_shooter = new SparkMax(7, MotorType.kBrushless);
+
+  //CTRE
+  private final WPI_VictorSPX m_intake1 = new WPI_VictorSPX(6);
+  private final WPI_VictorSPX m_intake2 = new WPI_VictorSPX(7);
+  //private final SparkMax m_shooter = new SparkMax(8, MotorType.kBrushless);
 
   //Solenoid
-  private final DoubleSolenoid m_climber = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
+  private final DoubleSolenoid m_climber = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
   
   //Controller Variable
   private final XboxController m_controller;
@@ -58,6 +64,9 @@ public class TimeBased extends TimedRobot {
      * Motor ID 4 follows 3 - right
      */
     m_robotDrive = new DifferentialDrive(m_leftMotor::set, m_rightMotor::set);
+
+    //For CTRE, we must use .follow.
+    m_intake2.follow(m_intake1);
   }
 
   /** Overridden teleop periodic function, This will be executed at 50Hz/20ms */
@@ -68,25 +77,25 @@ public class TimeBased extends TimedRobot {
 
     // Ball intake, when trigger is over half way intake the speed.
     if (m_controller.getLeftTriggerAxis() >= 0.5) {
-      m_intake.set(0.8);
+      m_intake1.set(0.8);
     }
     else{
-      m_intake.set(0);
+      m_intake1.set(0);
     }
 
     // Shooter conditional. When RT is pressed, shooter activates
     if (m_controller.getRightTriggerAxis() >= 0.5) {
-      m_intake.set(0.8); //Test
+      //m_shooter.set(0.8); //Test
     }
     else{
-      m_intake.set(0);
+      //m_shooter.set(0);
     }
 
     //Unjam function, in case it intake and shooter are stuck
     if(m_controller.getBButtonPressed())
     {
-      m_intake.set(-0.8);
-      m_shooter.set(-0.8);
+      m_intake1.set(-0.8);
+      //m_shooter.set(-0.8);
     }
 
 

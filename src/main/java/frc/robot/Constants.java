@@ -28,12 +28,13 @@ public final class Constants {
 
   public static class IntakeConstants {
     public static final int kLeadMotorPort = 5;
+    public static final int kFollowMotorPort = 6;
     public static final double kMotorSpeed = 1.0;
   }
 
   public static class ShooterConstants{
-    public static final int kLeftShooterConstant = 6;
-    public static final int kRightShooterConstant= 7;
+    public static final int kLeftShooterConstant = 7;
+    public static final int kRightShooterConstant= 8;
     public static final double kMinShooterInput = 0.5;
     public static final Double kShootingSpeed = 1.0;
   }
