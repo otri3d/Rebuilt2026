@@ -68,7 +68,7 @@ public class RobotContainer {
     m_controller.leftTrigger().whileTrue(new IntakeFuelCommand(m_intakeSubsystem));
 
     // This will make the controllers right bumper climb
-    m_controller.rightBumper().onTrue(new ClimbCommand(s_climbSubsystem));
+    m_controller.rightBumper().whileTrue(new ClimbCommand(s_climbSubsystem));
 
     // This will make the controllers left bumper clear the system
     m_controller.leftBumper().whileTrue(new ClearSystemCommand(m_intakeSubsystem, m_shooterSubsystem));

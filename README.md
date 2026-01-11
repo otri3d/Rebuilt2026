@@ -27,6 +27,7 @@ The drive subsystem is what makes the drivetrain motors move. We use 4 [Neo Brus
 The intake subsystem is what controls floor pick up mechanisim. There are 2 [`insert motor`]() motors controlled by [Spark Max](https://www.revrobotics.com/rev-11-2158/) motor controllers intaking the fuel. We have 1 of the motor controller set in a follow state, leading to only referencing a single motor controller in code. Since these motors are setup on the same side we do not need one of them to be inverted.
 
 ### Shooter Subsystem
+The shooter subsystem has 2 motors. The left Motor (Leader) and the right motor (follower). Note this MUST be setup throught in REV hardware client where the right motor is inverted and follows the left motor. When motors are powered, the shooter shoots the fuel.
 
 ### Climber Subsystem
 

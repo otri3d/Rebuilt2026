@@ -13,7 +13,6 @@ public class ShooterSubsystem extends SubsystemBase {
 
     /* Shoter controllers to shooter fuel */
     public SparkMax m_leftShooterLead= new SparkMax(ShooterConstants.kLeftShooterConstant, MotorType.kBrushless);
-    public SparkMax m_rightShooterFollow = new SparkMax(ShooterConstants.kRightShooterConstant, MotorType.kBrushless);
 
 
     //*TODO figure out direction of motors relative to direction of current. */
