@@ -9,7 +9,7 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ClearSystemCommand;
 import frc.robot.commands.IntakeFuelCommand;
 import frc.robot.commands.MoveCommand;
-import frc.robot.commands.Intake.IntakeStuckCommand;
+import frc.robot.commands.ShooterCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -36,12 +36,6 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Default command settings to move the robot
-    // If nothing is happening at least we are checking to move
-    m_driveSubsystem.setDefaultCommand(new MoveCommand(m_driveSubsystem,
-    () -> m_driverController.getLeftY(),
-    () -> m_driverController.getRightX()));
-    
     // Configure the trigger bindings
     configureBindings();
   }
@@ -56,11 +50,20 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    // Default command settings to move the robot
+    // If nothing is happening at least we are checking to move
+    m_driveSubsystem.setDefaultCommand(new MoveCommand(m_driveSubsystem,
+    () -> m_driverController.getLeftY(),
+    () -> m_driverController.getRightY()));
+
+    // This will make the controllers shooter output the fuel forwards
+    m_shooterSubsystem.setDefaultCommand(
+      new ShooterCommand(
+        m_shooterSubsystem,
+       ()-> m_driverController.getRawAxis(OperatorConstants.kShooterForwardPowerAxis)));
+
     // This will make the controllers left trigger intake a fuel
     m_driverController.leftTrigger().whileTrue(new IntakeFuelCommand(m_intakeSubsystem));
-
-    // This will make the controllers right trigger shoot a fuel
-    m_driverController.rightTrigger().whileTrue(new ShootFuelCommand(m_shooterSubsystem));
 
     // This will make the controllers right bumper climb
     m_driverController.rightBumper().onTrue(new ToggleSolenoid(s_climbSubsystem));

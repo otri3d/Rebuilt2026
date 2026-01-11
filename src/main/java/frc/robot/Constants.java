@@ -15,6 +15,7 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kShooterForwardPowerAxis = 2;
   }
 
   public static class DriveConstants {
@@ -22,11 +23,19 @@ public final class Constants {
     public static final int kLeftMotorPort2 = 2;
     public static final int kRightMotorPort1 = 3;
     public static final int kRightMotorPort2 = 4;
+ 
   }
 
   public static class IntakeConstants {
     public static final int kLeadMotorPort = 5;
     public static final double kMotorSpeed = 1.0;
+  }
+
+  public static class ShooterConstants{
+    public static final int kLeftShooterConstant = 3;
+    public static final int kRightShooterConstant= 4;
+    public static final double kMinShooterInput = 0.5;
+    public static final Double kShootingSpeed = 1.0;
   }
 
   public static class ClimbConstants {// assuming dual action solenoids
