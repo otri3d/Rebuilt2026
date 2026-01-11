@@ -16,6 +16,9 @@ public class DriveSubsystem extends SubsystemBase {
 
     /* Constructor for the drive subsystem */
     public DriveSubsystem() {
+        // Since 1 side is opposite that means rotation will also change, thus inverse
+        // THIS IS TODO CAUSE I DON'T KNOW HOW TO DO IT, .setInverted() is deprecated
+
         // This will set the motors in a differential drive, another way of saying tank drive
         // The motors will run differentially from each other
         m_Drive = new DifferentialDrive(m_leftMotorLead, m_rightMotorLead);
