@@ -31,6 +31,7 @@ public void StartSpinning()
 
 public void StopSpinning()
 {
+    isSpinning = false;
     m_motorLeader.set(0);
 }
 }
