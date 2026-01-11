@@ -9,8 +9,10 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.Drive.MoveCommand;
 import frc.robot.commands.Intake.IntakeFuelCommand;
 import frc.robot.commands.Intake.IntakeStuckCommand;
+import frc.robot.commands.Shooter.ShooterCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -25,6 +27,7 @@ public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  private final ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
 
   // Drive Controller that uses an XboxOne Controller
   private final CommandXboxController m_driverController =
@@ -56,6 +59,12 @@ public class RobotContainer {
     m_driverController.leftTrigger().whileTrue(new IntakeFuelCommand(m_intakeSubsystem));
     // This will make the controllers left bumper run the stuck (reverse) command
     m_driverController.leftBumper().whileTrue(new IntakeStuckCommand(m_intakeSubsystem));
+
+    // This will make the controllers shooter output the fuel forwards
+    m_ShooterSubsystem.setDefaultCommand(
+      new ShooterCommand(
+        m_ShooterSubsystem,
+       ()-> m_driverController.getRawAxis(OperatorConstants.kShooterForwardPowerAxis)));
 
     
   }
