@@ -77,7 +77,7 @@ public class RobotContainer {
     m_controller.leftBumper().whileTrue(new ClearSystemCommand(m_intakeSubsystem, m_shooterSubsystem,
       m_conveyorSubsystem));
 
-    m_controller.a().onTrue(new ConveyorCommand(m_conveyorSubsystem));
+    m_controller.a().whileTrue(new ConveyorCommand(m_conveyorSubsystem));
   }
 
   /**
