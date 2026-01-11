@@ -11,11 +11,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterCommand extends Command {
     private final ShooterSubsystem m_ShooterSubsystem;
-
     public final Supplier<Double> shooterSpeedSupplier;
    
-
-
     public ShooterCommand(
         ShooterSubsystem ShooterSubsystem, 
         /*Controller input into shooter command.*/
@@ -38,13 +35,9 @@ public class ShooterCommand extends Command {
     @Override
     public void execute() {
         /* power intake consumer motor */
-        
         if( shooterSpeedSupplier.get() > ShooterConstants.kMinShooterInput)
         {
             m_ShooterSubsystem.setShooterMotorsPower(ShooterConstants.kShootingSpeed);
-        }
-        else{
-            m_ShooterSubsystem.StopMotors();
         }
     }
 
