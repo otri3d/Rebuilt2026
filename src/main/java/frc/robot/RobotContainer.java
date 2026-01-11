@@ -28,6 +28,7 @@ public class RobotContainer {
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  private final ClimbSubsystem s_climbSubsystem = new ClimbSubsystem();
 
   // Drive Controller that uses an XboxOne Controller
   private final CommandXboxController m_driverController =
@@ -62,11 +63,9 @@ public class RobotContainer {
     m_driverController.rightTrigger().whileTrue(new ShootFuelCommand(m_shooterSubsystem));
 
     // This will make the controllers right bumper climb
-    m_driverController.rightBumper().onTrue(new Command() {
-      // Do not have code for this right now
-    });
+    m_driverController.rightBumper().onTrue(new ToggleSolenoid(s_climbSubsystem));
 
-    // This will make the controllersb b button clear the system
+    // This will make the controllers left bumper clear the system
     m_driverController.leftBumper().whileTrue(new ClearSystemCommand(m_intakeSubsystem, m_shooterSubsystem));
   }
 

@@ -28,4 +28,9 @@ public final class Constants {
     public static final int kLeadMotorPort = 5;
     public static final double kMotorSpeed = 1.0;
   }
+
+  public static class ClimbConstants {// assuming dual action solenoids
+    public static final int[] kSolenoidPins = {1,2,3,4};
+                                  // {forward1, reverse1, forward2, reverse2}
+  }
 }
