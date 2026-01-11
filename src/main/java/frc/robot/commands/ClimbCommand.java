@@ -20,14 +20,13 @@ public class ClimbCommand extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        // Activate Solenoids
+        m_ClimbSubsystem.ToggleSolenoid();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() { 
-
-        // Activate Solenoids
-        m_ClimbSubsystem.ToggleSolenoid();
     }
 
     // Called once the command ends or is interrupted.
