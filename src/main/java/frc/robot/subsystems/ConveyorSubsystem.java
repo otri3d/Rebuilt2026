@@ -7,13 +7,11 @@ import frc.robot.Constants.ConveyorConstants;
 
 public class ConveyorSubsystem extends SubsystemBase {
 
-private boolean isSpinning;
+private boolean isSpinning = false;
 
  private WPI_VictorSPX m_motorLeader = new WPI_VictorSPX(ConveyorConstants.kLeadMotorPort);
 
 public ConveyorSubsystem(){
-    isSpinning = false;
-    StopSpinning();
 }
 
 public void ToggleConveyor() {
