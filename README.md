@@ -9,7 +9,7 @@ We also have time based robot code! This time based code is under a single file 
 To control our robot, we used an [Xbox One Controller](#Xbox-Controls) for all operations.
 
 ### Xbox Controls
-![Xbox Controller Keybinds](/controllerbinds.jpeg "Xbox Controller Keybinds")
+![Xbox Controller Keybinds](binds.png "Xbox Controller Keybinds")
 
 ## Subsystems
 These are the subsystems that we implemented to make our robot work. These can be found in the [`subsystems`](https://github.com/otri3d/Rebuilt2026/tree/main/src/main/java/frc/robot/subsystems) folder.
