@@ -7,27 +7,24 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ClearSystemCommand;
-import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.IntakeFuelCommand;
 import frc.robot.commands.MoveCommand;
 import frc.robot.commands.ShooterCommand;
-import frc.robot.commands.ClearSystemCommand;
-import frc.robot.subsystems.ConveyorSubsystem;
+import frc.robot.commands.ClimbCommand;
+import frc.robot.commands.ConveyorCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.ConveyorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
- * This class is where the bulk of the robot should be declared. Since
- * Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in
- * the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of
- * the robot (including
+ * This class is where the bulk of the robot should be declared. Since Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
@@ -36,14 +33,13 @@ public class RobotContainer {
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final ClimbSubsystem s_climbSubsystem = new ClimbSubsystem();
-  private final ConveyorSubsystem m_ConveyorSubsystem = new ConveyorSubsystem();
+  private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
 
   // Drive Controller that uses an XboxOne Controller
-  private final CommandXboxController m_controller = new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandXboxController m_controller =
+      new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
-  /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
+  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
@@ -78,9 +74,10 @@ public class RobotContainer {
     m_controller.rightBumper().whileTrue(new ClimbCommand(s_climbSubsystem));
 
     // This will make the controllers left bumper clear the system
-    m_controller.leftBumper().whileTrue(new ClearSystemCommand(m_intakeSubsystem, m_shooterSubsystem));
+    m_controller.leftBumper().whileTrue(new ClearSystemCommand(m_intakeSubsystem, m_shooterSubsystem,
+      m_conveyorSubsystem));
 
-    m_controller.a().onTrue(new ToggleConveyor(m_ConveyorSubsystem));
+    m_controller.a().onTrue(new ConveyorCommand(m_conveyorSubsystem));
   }
 
   /**

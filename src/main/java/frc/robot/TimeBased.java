@@ -19,6 +19,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.XboxController; 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -36,24 +37,32 @@ public class TimeBased extends TimedRobot {
   //Replace IDs later on, subject to change depending on elec (Cass)
   // Follow through FW.
   //SparkMax
-  private final SparkMax m_leftMotor = new SparkMax(9, MotorType.kBrushless);
+  private final SparkMax m_leftMotor = new SparkMax(1, MotorType.kBrushless);
   private final SparkMax m_rightMotor = new SparkMax(3, MotorType.kBrushless);
+  private final SparkMax m_shooter = new SparkMax(9, MotorType.kBrushless);
 
   //CTRE
-  private final WPI_VictorSPX m_intake1 = new WPI_VictorSPX(6);
-  private final WPI_VictorSPX m_intake2 = new WPI_VictorSPX(7);
-  //private final SparkMax m_shooter = new SparkMax(8, MotorType.kBrushless);
+  private final WPI_VictorSPX m_intake1 = new WPI_VictorSPX(5);
+  private final WPI_VictorSPX m_intake2 = new WPI_VictorSPX(6);
+  private final WPI_VictorSPX m_feeder1 = new WPI_VictorSPX(7);
+  private final WPI_VictorSPX m_feeder2 = new WPI_VictorSPX(8);
+  private final WPI_VictorSPX m_conveyor = new WPI_VictorSPX(10);
 
   //Solenoid
-  private final DoubleSolenoid m_climber = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
+  private final DoubleSolenoid m_climber1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
+  private final DoubleSolenoid m_climber2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
+  private final DoubleSolenoid[] m_climber = {m_climber1, m_climber2};
   
   //Controller Variable
   private final XboxController m_controller;
 
+  boolean isSpinning;
+
   /** Timer Based Robot Constructor. */
   public TimeBased() {
     m_controller = new XboxController(0);
-    m_climber.set(Value.kForward);
+    m_climber[0].set(Value.kForward);
+    m_climber[1].set(Value.kForward);
 
     /*
      * AWD, Left motors must follow together, same with right.
@@ -67,6 +76,9 @@ public class TimeBased extends TimedRobot {
 
     //For CTRE, we must use .follow.
     m_intake2.follow(m_intake1);
+    m_feeder2.follow(m_feeder1);
+
+    isSpinning = false;
   }
 
   /** Overridden teleop periodic function, This will be executed at 50Hz/20ms */
@@ -85,26 +97,43 @@ public class TimeBased extends TimedRobot {
 
     // Shooter conditional. When RT is pressed, shooter activates
     if (m_controller.getRightTriggerAxis() >= 0.5) {
-      //m_shooter.set(0.8); //Test
+      m_shooter.set(1.0); //Test
+      m_feeder1.set(0.9);
     }
     else{
-      //m_shooter.set(0);
+      m_shooter.set(0);
+      m_feeder1.set(0);
     }
 
-    //Unjam function, in case it intake and shooter are stuck
-    if(m_controller.getBButtonPressed())
+    //Unjam function, in case if intake and shooter are stuck
+    if(m_controller.getLeftBumperButtonPressed())
     {
       m_intake1.set(-0.8);
-      //m_shooter.set(-0.8);
+      m_shooter.set(-1.0);
+      m_feeder1.set(-0.9);
+      m_conveyor.set(0);
     }
 
 
     // Conditional for the climber solenoid. Assuming double, might change in future.
     if (m_controller.getRightBumperButtonPressed()) {
-      if (m_climber.get() == Value.kForward) {
-        m_climber.set(Value.kReverse);
+      if (m_climber1.get() == Value.kForward) {
+        m_climber[0].set(Value.kReverse);
+        m_climber[1].set(Value.kReverse);
       } else {
-        m_climber.set(Value.kForward);
+        m_climber[0].set(Value.kForward);
+        m_climber[1].set(Value.kForward);
+      }
+    }
+    
+    //Conveyor Conditional
+    if(m_controller.getAButtonPressed()){
+      if(!isSpinning){
+        isSpinning = true;
+        m_conveyor.set(0.8);
+      }else{
+        isSpinning = false;
+        m_conveyor.set(0);
       }
     }
   }

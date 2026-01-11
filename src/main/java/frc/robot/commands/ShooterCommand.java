@@ -37,7 +37,7 @@ public class ShooterCommand extends Command {
         /* power intake consumer motor */
         if( shooterSpeedSupplier.get() > ShooterConstants.kMinShooterInput)
         {
-            m_ShooterSubsystem.setShooterMotorsPower(ShooterConstants.kShootingSpeed);
+            m_ShooterSubsystem.setShooterMotorsPower(ShooterConstants.kShootingSpeed, ShooterConstants.kFeedingSpeed);
         }
         else{
             m_ShooterSubsystem.StopMotors();
