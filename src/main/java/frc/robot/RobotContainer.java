@@ -9,8 +9,7 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ClearSystemCommand;
 import frc.robot.commands.IntakeFuelCommand;
 import frc.robot.commands.MoveCommand;
-import frc.robot.commands.Intake.IntakeStuckCommand;
-import frc.robot.commands.Shooter.ShooterCommand;
+import frc.robot.commands.ShooterCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -57,9 +56,9 @@ public class RobotContainer {
     () -> m_driverController.getRightX()));
 
     // This will make the controllers shooter output the fuel forwards
-    m_ShooterSubsystem.setDefaultCommand(
+    m_shooterSubsystem.setDefaultCommand(
       new ShooterCommand(
-        m_ShooterSubsystem,
+        m_shooterSubsystem,
        ()-> m_driverController.getRawAxis(OperatorConstants.kShooterForwardPowerAxis)));
 
     // This will make the controllers left trigger intake a fuel

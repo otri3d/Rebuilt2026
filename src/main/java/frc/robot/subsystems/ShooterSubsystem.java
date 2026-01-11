@@ -20,7 +20,7 @@ public class ShooterSubsystem extends SubsystemBase {
     public void setShooterMotorsPower(Double power)  {
         /*power left lead motor, right motor will 
         follow if set correctly in REV hardware correctly */
-        m_leftShooterLead.set(1);
+        m_leftShooterLead.set(power);
        
     }
         public void StopMotors()  {
