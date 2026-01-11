@@ -10,6 +10,7 @@ import frc.robot.commands.ClearSystemCommand;
 import frc.robot.commands.IntakeFuelCommand;
 import frc.robot.commands.MoveCommand;
 import frc.robot.commands.Intake.IntakeStuckCommand;
+import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -29,6 +30,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final ClimbSubsystem s_climbSubsystem = new ClimbSubsystem();
+  private final ConveyorSubsystem m_ConveyorSubsystem = new ConveyorSubsystem();
 
   // Drive Controller that uses an XboxOne Controller
   private final CommandXboxController m_driverController =
@@ -67,6 +69,8 @@ public class RobotContainer {
 
     // This will make the controllers left bumper clear the system
     m_driverController.leftBumper().whileTrue(new ClearSystemCommand(m_intakeSubsystem, m_shooterSubsystem));
+
+    m_driverController.a().onTrue(new ToggleConveyor(m_ConveyorSubsystem));
   }
 
   /**

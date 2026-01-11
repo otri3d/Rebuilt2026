@@ -25,7 +25,7 @@ for (DoubleSolenoid solenoid : s_climbSolenoid) {
 
 public void ToggleSolenoid() {
         for (DoubleSolenoid solenoid : s_climbSolenoid) {
-            solenoid.toggle();
+            solenoid.toggle();  
             }
                 }
     }
