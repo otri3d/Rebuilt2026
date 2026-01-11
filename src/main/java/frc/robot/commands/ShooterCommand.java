@@ -39,11 +39,14 @@ public class ShooterCommand extends Command {
         {
             m_ShooterSubsystem.setShooterMotorsPower(ShooterConstants.kShootingSpeed);
         }
+        else{
+            m_ShooterSubsystem.StopMotors();
+        }
     }
 
     @Override
     public void end(boolean interrupted) {
-        /* when command ends, stop  the shooter motors. */
+        /* when command ends, stop the shooter motors. */
         m_ShooterSubsystem.StopMotors();
 
     }
