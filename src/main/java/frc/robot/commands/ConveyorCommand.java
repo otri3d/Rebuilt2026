@@ -17,12 +17,14 @@ public class ConveyorCommand extends Command {
     @Override
     public void initialize() {
         // Call the  subsystem to move
-        m_subsystem.ToggleConveyor();
+        m_subsystem.StartSpinning();
+        
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() { 
+        m_subsystem.StartSpinning();
     }
 
     // Called once the command ends or is interrupted.

@@ -15,7 +15,9 @@ public ConveyorSubsystem(){
 }
 
 public void ToggleConveyor() {
+    System.out.println("THE MOTOR is going to be TOGGLED NEW STATE: " + isSpinning);
     isSpinning = !isSpinning;
+    System.out.println("THE MOTOR HAS BEEN TOGGLED NEW STATE: " + isSpinning);
 
     if(isSpinning) StartSpinning();
     else StopSpinning();
@@ -24,6 +26,7 @@ public void ToggleConveyor() {
 
 public void StartSpinning()
 {
+    System.out.println("THE MOTOR HAS BEEN STARTED");
     m_motorLeader.set(ConveyorConstants.kMotorSpeed);
 }
 
@@ -31,6 +34,7 @@ public void StopSpinning()
 {
     isSpinning = false;
     m_motorLeader.set(0);
+    System.out.println("THE MOTOR HAS BEEN STOPPED");
 }
 }
 
