@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class ClearSystemCommand extends Command {
@@ -22,7 +23,7 @@ public class ClearSystemCommand extends Command {
         // Call the intake to run in reverse
         m_intakeSubsystem.StuckFuel();
 
-        m_shooterSubsystem.StuckFuel();
+        m_shooterSubsystem.setShooterMotorsPower(-ShooterConstants.kShootingSpeed);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -35,7 +36,7 @@ public class ClearSystemCommand extends Command {
     public void end(boolean interrupted) {
         // Since it ended we want to stop the intake
         m_intakeSubsystem.StopMotor();
-        m_shooterSubsystem.StopMotor();
+        m_shooterSubsystem.StopMotors();
     }
 
     // Returns true when the command should end.
