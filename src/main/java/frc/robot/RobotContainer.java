@@ -53,7 +53,7 @@ public class RobotContainer {
     // If nothing is happening at least we are checking to move
     m_driveSubsystem.setDefaultCommand(new MoveCommand(m_driveSubsystem,
     () -> m_driverController.getLeftY(),
-    () -> m_driverController.getRightX()));
+    () -> m_driverController.getRightY()));
 
     // This will make the controllers shooter output the fuel forwards
     m_shooterSubsystem.setDefaultCommand(

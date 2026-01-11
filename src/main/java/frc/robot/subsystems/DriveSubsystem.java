@@ -28,6 +28,6 @@ public class DriveSubsystem extends SubsystemBase {
     // F is for the forward speed
     // R is for the rotating speed
     public void Move(Double f, Double r)  {
-        m_Drive.arcadeDrive(f, r);
+        m_Drive.tankDrive(f, r);
     }
 }
