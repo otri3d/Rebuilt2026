@@ -6,8 +6,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimbConstants;
 
 public class ClimbSubsystem extends SubsystemBase {
-  // DoubleSolenoid ds = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, ClimbConstants.kSolenoidPins[0],
-  //         ClimbConstants.kSolenoidPins[1]);
+  // DoubleSolenoid ds = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
+  // ClimbConstants.kSolenoidPins[0],
+  // ClimbConstants.kSolenoidPins[1]);
 
   // assume 2 solenoids can add more or less
   private DoubleSolenoid[] s_climbSolenoid = new DoubleSolenoid[] {
