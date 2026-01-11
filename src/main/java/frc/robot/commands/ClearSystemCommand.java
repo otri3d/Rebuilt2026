@@ -23,7 +23,7 @@ public class ClearSystemCommand extends Command {
         // Call the intake to run in reverse
         m_intakeSubsystem.StuckFuel();
 
-        m_shooterSubsystem.setShooterMotorsPower(-ShooterConstants.kShootingSpeed);
+        m_shooterSubsystem.setShooterMotorsPower(-ShooterConstants.kShootingSpeed, -ShooterConstants.kFeedingSpeed);
     }
 
     // Called every time the scheduler runs while the command is scheduled.

@@ -33,10 +33,12 @@ public final class Constants {
   }
 
   public static class ShooterConstants{
-    public static final int kLeftShooterConstant = 7;
-    public static final int kRightShooterConstant= 8;
+    public static final int kLeftFeederConstant = 7;
+    public static final int kRightFeederConstant= 8;
+    public static final int kShooterConstant = 9;
     public static final double kMinShooterInput = 0.5;
-    public static final Double kShootingSpeed = 1.0;
+    public static final double kFeedingSpeed = 0.9;
+    public static final double kShootingSpeed = 1.0;
   }
 
   public static class ClimbConstants {// assuming dual action solenoids
