@@ -45,4 +45,9 @@ public final class Constants {
     public static final int[] kSolenoidPins = {1,2,3,4};
                                   // {forward1, reverse1, forward2, reverse2}
   }
+
+  public static class ConveyorConstants {
+    public static final int kLeadMotorPort = 10;
+    public static final double kMotorSpeed = 1.0;
+  }
 }

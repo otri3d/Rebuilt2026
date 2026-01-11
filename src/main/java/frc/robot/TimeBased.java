@@ -19,6 +19,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.XboxController; 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -36,15 +37,16 @@ public class TimeBased extends TimedRobot {
   //Replace IDs later on, subject to change depending on elec (Cass)
   // Follow through FW.
   //SparkMax
-  private final SparkMax m_leftMotor = new SparkMax(9, MotorType.kBrushless);
+  private final SparkMax m_leftMotor = new SparkMax(1, MotorType.kBrushless);
   private final SparkMax m_rightMotor = new SparkMax(3, MotorType.kBrushless);
-  private final SparkMax m_shooter = new SparkMax(8, MotorType.kBrushless);
+  private final SparkMax m_shooter = new SparkMax(9, MotorType.kBrushless);
 
   //CTRE
-  private final WPI_VictorSPX m_intake1 = new WPI_VictorSPX(6);
-  private final WPI_VictorSPX m_intake2 = new WPI_VictorSPX(7);
-  private final WPI_VictorSPX m_feeder1 = new WPI_VictorSPX(10);
-  private final WPI_VictorSPX m_feeder2 = new WPI_VictorSPX(11);
+  private final WPI_VictorSPX m_intake1 = new WPI_VictorSPX(5);
+  private final WPI_VictorSPX m_intake2 = new WPI_VictorSPX(6);
+  private final WPI_VictorSPX m_feeder1 = new WPI_VictorSPX(7);
+  private final WPI_VictorSPX m_feeder2 = new WPI_VictorSPX(8);
+  private final WPI_VictorSPX m_conveyor = new WPI_VictorSPX(10);
 
   //Solenoid
   private final DoubleSolenoid m_climber1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
@@ -53,6 +55,8 @@ public class TimeBased extends TimedRobot {
   
   //Controller Variable
   private final XboxController m_controller;
+
+  boolean isSpinning;
 
   /** Timer Based Robot Constructor. */
   public TimeBased() {
@@ -73,6 +77,8 @@ public class TimeBased extends TimedRobot {
     //For CTRE, we must use .follow.
     m_intake2.follow(m_intake1);
     m_feeder2.follow(m_feeder1);
+
+    isSpinning = false;
   }
 
   /** Overridden teleop periodic function, This will be executed at 50Hz/20ms */
@@ -95,15 +101,17 @@ public class TimeBased extends TimedRobot {
       m_feeder1.set(0.9);
     }
     else{
-      //m_shooter.set(0);
+      m_shooter.set(0);
+      m_feeder1.set(0);
     }
 
-    //Unjam function, in case it intake and shooter are stuck
-    if(m_controller.getBButtonPressed())
+    //Unjam function, in case if intake and shooter are stuck
+    if(m_controller.getLeftBumperButtonPressed())
     {
       m_intake1.set(-0.8);
       m_shooter.set(-1.0);
       m_feeder1.set(-0.9);
+      m_conveyor.set(0);
     }
 
 
@@ -115,6 +123,17 @@ public class TimeBased extends TimedRobot {
       } else {
         m_climber[0].set(Value.kForward);
         m_climber[1].set(Value.kForward);
+      }
+    }
+    
+    //Conveyor Conditional
+    if(m_controller.getAButtonPressed()){
+      if(!isSpinning){
+        isSpinning = true;
+        m_conveyor.set(0.8);
+      }else{
+        isSpinning = false;
+        m_conveyor.set(0);
       }
     }
   }
