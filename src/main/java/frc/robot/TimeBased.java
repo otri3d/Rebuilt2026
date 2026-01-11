@@ -33,20 +33,27 @@ public class TimeBased extends TimedRobot {
   private final SparkMax m_leftMotor = new SparkMax(9, MotorType.kBrushless);
   private final SparkMax m_rightMotor = new SparkMax(3, MotorType.kBrushless);
   private final SparkMax m_intake = new SparkMax(6, MotorType.kBrushless);
-  // private final SparkMax m_shooter = new SparkMax(7, MotorType.kBrushless);
+  private final SparkMax m_shooter = new SparkMax(7, MotorType.kBrushless);
 
+  //Solenoid
+  private final DoubleSolenoid m_climber = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
+  
   //Controller Variable
   private final XboxController m_controller;
 
   /** Timer Based Robot Constructor. */
   public TimeBased() {
     m_controller = new XboxController(0);
+    m_climber.set(Value.kForward);
 
-    //AWD, Left motors must follow together, same with right
-    // The follow method does not work, meaning that the follower is set in the REV Hardware
-    // Motor ID 1 follows 9 - left
-    // Motor ID 4 follows 3 - right
-
+    /*
+     * AWD, Left motors must follow together, same with right.
+     * Unlike last year, the follow method does not work, meaning 
+     * that the follower must be set in REV Hardware. As such, the 
+     * code to initialize motors 
+     * Motor ID 1 follows 9 - left
+     * Motor ID 4 follows 3 - right
+     */
     m_robotDrive = new DifferentialDrive(m_leftMotor::set, m_rightMotor::set);
   }
 
@@ -72,27 +79,21 @@ public class TimeBased extends TimedRobot {
       m_intake.set(0);
     }
 
-    /* Temp code from last year
-    m_rotateLowerLeft.set(m_OperatorController.getLeftY());
-    m_rorateUpeer.set(m_OperatorController.getRightY() * 0.4);
-
-    if (m_OperatorController.getL2ButtonPressed()) {
-      m_intake.set(0.8);
-    }
-    if (m_OperatorController.getR2ButtonPressed()) {
+    //Unjam function, in case it intake and shooter are stuck
+    if(m_controller.getBButtonPressed())
+    {
       m_intake.set(-0.8);
-    }
-    if (m_OperatorController.getR2Button() == m_OperatorController.getL2Button()) {
-      m_intake.set(0);
+      m_shooter.set(-0.8);
     }
 
-    if (m_OperatorController.getR1ButtonPressed()) {
-      if (m_ClawSolenoid.get() == Value.kForward) {
-        m_ClawSolenoid.set(Value.kReverse);
+
+    // Conditional for the climber solenoid. Assuming double, might change in future.
+    if (m_controller.getRightBumperButtonPressed()) {
+      if (m_climber.get() == Value.kForward) {
+        m_climber.set(Value.kReverse);
       } else {
-        m_ClawSolenoid.set(Value.kForward);
+        m_climber.set(Value.kForward);
       }
     }
-    */
   }
 }

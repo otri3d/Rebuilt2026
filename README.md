@@ -6,17 +6,20 @@ Ontario Tech RI3D code repository for the 2026 FIRST Robotics Competition, Rebui
 We also have a time based robot code! This time based is a single file called `TimeBased` found in the [`src\main\java\frc\robot`](https://github.com/otri3d/Rebuilt2026/tree/main/src/main/java/frc/robot) folder.
 
 ## Controls
-To control our robot we used [Xbox One Controller](#driver) for driver controls and used [Y controller](#operator) for the operator controls.
+To control our robot we used an [Xbox One Controller](#driver) for all operations.
 
-### Driver
+### Controls
 
-### Operator
 
 ## Subsystems
 
-### Subsystem X
+### Drivetrain Subsystem
 
-### Subsystem Y
+### Intake Subsystem
+
+### Shooter Subsystem
+
+### Climber Subsystem
 
 ## Commands
 These are the commands that we implemented to make our robot work. These can be found in the [`commands`](https://github.com/otri3d/Rebuilt2026/tree/main/src/main/java/frc/robot/commands) folder.
