@@ -29,8 +29,9 @@ public class TimeBased extends TimedRobot {
   private final DifferentialDrive m_robotDrive; //Used for drivetrain
 
   //Replace IDs later on, subject to change depending on elec (Cass)
-  private final SparkMax m_leftMotor1 = new SparkMax(9, MotorType.kBrushless);
-  private final SparkMax m_rightMotor1 = new SparkMax(3, MotorType.kBrushless);
+  // Follow through FW.
+  private final SparkMax m_leftMotor = new SparkMax(9, MotorType.kBrushless);
+  private final SparkMax m_rightMotor = new SparkMax(3, MotorType.kBrushless);
   private final SparkMax m_intake = new SparkMax(6, MotorType.kBrushless);
   // private final SparkMax m_shooter = new SparkMax(7, MotorType.kBrushless);
 
@@ -42,13 +43,11 @@ public class TimeBased extends TimedRobot {
     m_controller = new XboxController(0);
 
     //AWD, Left motors must follow together, same with right
-    // m_leftMotor2.follow(m_leftMotor1);
-    // m_rightMotor2.follow(m_rightMotor1);
     // The follow method does not work, meaning that the follower is set in the REV Hardware
     // Motor ID 1 follows 9 - left
     // Motor ID 4 follows 3 - right
 
-    m_robotDrive = new DifferentialDrive(m_leftMotor1::set, m_rightMotor1::set);
+    m_robotDrive = new DifferentialDrive(m_leftMotor::set, m_rightMotor::set);
   }
 
   /** Overridden teleop periodic function, This will be executed at 50Hz/20ms */
