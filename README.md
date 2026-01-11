@@ -6,21 +6,17 @@ Ontario Tech RI3D code repository for the 2026 FIRST Robotics Competition, Rebui
 We also have a time based robot code! This time based is a single file called [`TimeBased`](https://github.com/otri3d/Rebuilt2026/blob/kersh/src/main/java/frc/robot/TimeBased.java) found in the [`src\main\java\frc\robot`](https://github.com/otri3d/Rebuilt2026/tree/main/src/main/java/frc/robot) folder.
 
 ## Controls
-To control our robot we used [Xbox One Controller](#driver) for driver controls and operator controls.
+To control our robot we used an [Xbox One Controller](#Xbox-Controls) for all operations.
 
-### Controller
+### Xbox Controls
+
+![Xbox Controller Keybinds](binds.png)
 
 ## Subsystems
 These are the subsystems that we implemented to make our robot work. These can be found in the [`subsystems`](https://github.com/otri3d/Rebuilt2026/tree/main/src/main/java/frc/robot/subsystems) folder.
 
 ### Drive Subsystem
 The drive subsystem is what makes the drivetrain motors move. We use 4 [Neo Brushless](https://www.revrobotics.com/rev-21-1650/) motors with [Spark Max](https://www.revrobotics.com/rev-11-2158/) motor controllers. The motor controllers have the leader/follower role and the inverted state set in the firmware. As methods were being deprecated we leaned towards the more concrete ways of doing it. 
-
-#### Left Side
-
-
-#### Right Side
-
 
 ### Intake Subsystem
 The intake subsystem is what controls floor pick up mechanisim. There are 2 [`insert motor`]() motors controlled by [Spark Max](https://www.revrobotics.com/rev-11-2158/) motor controllers intaking the fuel. We have 1 of the motor controller set in a follow state, leading to only referencing a single motor controller in code. Since these motors are setup on the same side we do not need one of them to be inverted.
