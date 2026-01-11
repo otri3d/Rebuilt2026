@@ -6,11 +6,13 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.Drive.MoveCommand;
-import frc.robot.commands.Intake.IntakeFuelCommand;
+import frc.robot.commands.ClearSystemCommand;
+import frc.robot.commands.IntakeFuelCommand;
+import frc.robot.commands.MoveCommand;
 import frc.robot.commands.Intake.IntakeStuckCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -25,6 +27,7 @@ public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
 
   // Drive Controller that uses an XboxOne Controller
   private final CommandXboxController m_driverController =
@@ -54,10 +57,17 @@ public class RobotContainer {
   private void configureBindings() {
     // This will make the controllers left trigger intake a fuel
     m_driverController.leftTrigger().whileTrue(new IntakeFuelCommand(m_intakeSubsystem));
-    // This will make the controllers left bumper run the stuck (reverse) command
-    m_driverController.leftBumper().whileTrue(new IntakeStuckCommand(m_intakeSubsystem));
 
-    
+    // This will make the controllers right trigger shoot a fuel
+    m_driverController.rightTrigger().whileTrue(new ShootFuelCommand(m_shooterSubsystem));
+
+    // This will make the controllers right bumper climb
+    m_driverController.rightBumper().onTrue(new Command() {
+      // Do not have code for this right now
+    });
+
+    // This will make the controllersb b button clear the system
+    m_driverController.leftBumper().whileTrue(new ClearSystemCommand(m_intakeSubsystem, m_shooterSubsystem));
   }
 
   /**
