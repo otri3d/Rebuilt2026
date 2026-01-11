@@ -19,6 +19,9 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.XboxController; 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 /**
  * This is the TimeBased class that will be used for backup if the command
