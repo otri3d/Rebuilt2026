@@ -10,9 +10,11 @@ import frc.robot.commands.ClearSystemCommand;
 import frc.robot.commands.IntakeFuelCommand;
 import frc.robot.commands.MoveCommand;
 import frc.robot.commands.ShooterCommand;
+import frc.robot.commands.ClimbCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.ClimbSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -31,7 +33,7 @@ public class RobotContainer {
   private final ClimbSubsystem s_climbSubsystem = new ClimbSubsystem();
 
   // Drive Controller that uses an XboxOne Controller
-  private final CommandXboxController m_driverController =
+  private final CommandXboxController m_controller =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -53,23 +55,23 @@ public class RobotContainer {
     // Default command settings to move the robot
     // If nothing is happening at least we are checking to move
     m_driveSubsystem.setDefaultCommand(new MoveCommand(m_driveSubsystem,
-    () -> m_driverController.getLeftY(),
-    () -> m_driverController.getRightY()));
+    () -> m_controller.getLeftY(),
+    () -> m_controller.getRightY()));
 
     // This will make the controllers shooter output the fuel forwards
     m_shooterSubsystem.setDefaultCommand(
       new ShooterCommand(
         m_shooterSubsystem,
-       ()-> m_driverController.getRawAxis(OperatorConstants.kShooterForwardPowerAxis)));
+       ()-> m_controller.getRawAxis(OperatorConstants.kShooterForwardPowerAxis)));
 
     // This will make the controllers left trigger intake a fuel
-    m_driverController.leftTrigger().whileTrue(new IntakeFuelCommand(m_intakeSubsystem));
+    m_controller.leftTrigger().whileTrue(new IntakeFuelCommand(m_intakeSubsystem));
 
     // This will make the controllers right bumper climb
-    m_driverController.rightBumper().onTrue(new ToggleSolenoid(s_climbSubsystem));
+    m_controller.rightBumper().onTrue(new ClimbCommand(s_climbSubsystem));
 
     // This will make the controllers left bumper clear the system
-    m_driverController.leftBumper().whileTrue(new ClearSystemCommand(m_intakeSubsystem, m_shooterSubsystem));
+    m_controller.leftBumper().whileTrue(new ClearSystemCommand(m_intakeSubsystem, m_shooterSubsystem));
   }
 
   /**
