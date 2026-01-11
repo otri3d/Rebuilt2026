@@ -30,11 +30,9 @@ public class TimeBased extends TimedRobot {
 
   //Replace IDs later on, subject to change depending on elec (Cass)
   private final SparkMax m_leftMotor1 = new SparkMax(9, MotorType.kBrushless);
-  private final SparkMax m_leftMotor2 = new SparkMax(1, MotorType.kBrushless);
   private final SparkMax m_rightMotor1 = new SparkMax(3, MotorType.kBrushless);
-  private final SparkMax m_rightMotor2 = new SparkMax(4, MotorType.kBrushless);
   private final SparkMax m_intake = new SparkMax(6, MotorType.kBrushless);
-  private final SparkMax m_shooter = new SparkMax(7, MotorType.kBrushless);
+  // private final SparkMax m_shooter = new SparkMax(7, MotorType.kBrushless);
 
   //Controller Variable
   private final XboxController m_controller;
