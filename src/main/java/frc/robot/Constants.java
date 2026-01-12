@@ -42,7 +42,7 @@ public final class Constants {
   }
 
   public static class ClimbConstants {// assuming dual action solenoids
-    public static final int[] kSolenoidPins = {1,2,3,4};
+    public static final int[] kSolenoidPins = {4,5,6,7};
                                   // {forward1, reverse1, forward2, reverse2}
   }
 
