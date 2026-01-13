@@ -26,7 +26,7 @@ public class ClearSystemCommand extends Command {
     public void initialize() {
         // Call the intake to run in reverse
         m_intakeSubsystem.StuckFuel();
-        m_shooterSubsystem.setShooterMotorsPower(-ShooterConstants.kShootingSpeed, -ShooterConstants.kFeedingSpeed);
+        m_shooterSubsystem.setShooterMotorsPower(-ShooterConstants.kTalonShootingSpeed, -ShooterConstants.kSparkShootingSpeed);
         
         //Stop conveyor
         m_conveyorSubsystem.StopSpinning();

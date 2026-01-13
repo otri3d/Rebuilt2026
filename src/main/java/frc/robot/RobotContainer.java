@@ -63,8 +63,8 @@ public class RobotContainer {
     // Default command settings to move the robot
     // If nothing is happening at least we are checking to move
     m_driveSubsystem.setDefaultCommand(new MoveCommand(m_driveSubsystem,
-    () -> m_controller.getLeftY(),
-    () -> m_controller.getRightY()));
+    () -> m_controller.getRightY(),
+    () -> m_controller.getLeftY()));
 
     // This will make the controllers shooter output the fuel forwards
     m_shooterSubsystem.setDefaultCommand(
@@ -72,7 +72,7 @@ public class RobotContainer {
         m_shooterSubsystem,
        ()-> m_controller.getRawAxis(OperatorConstants.kShooterForwardPowerAxis)));
 
-    // This will make the controllers left trigger intake a fuel
+    // This will make the contr ollers left trigger intake a fuel
     m_controller.leftTrigger().whileTrue(new IntakeFuelCommand(m_intakeSubsystem));
 
     // This will make the controllers right bumper climb
@@ -81,10 +81,7 @@ public class RobotContainer {
     // This will make the controllers left bumper clear the system
     m_controller.leftBumper().whileTrue(new ClearSystemCommand(m_intakeSubsystem, m_shooterSubsystem,m_conveyorSubsystem));
 
-    
-
-
-    new JoystickButton(m_controller.getHID(),1 ).toggleOnTrue(new ConveyorCommand(m_conveyorSubsystem));
+    // new JoystickButton(m_controller.getHID(),1 ).toggleOnTrue(new ConveyorCommand(m_conveyorSubsystem));
 
   };
 

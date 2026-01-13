@@ -15,32 +15,33 @@ public class ShooterSubsystem extends SubsystemBase {
      * 
      * /* Shoter controllers to shooter fuel
      */
-    public SparkMax m_shooter = new SparkMax(ShooterConstants.kShooterConstant, MotorType.kBrushless);
-    public WPI_VictorSPX m_feederLeader = new WPI_VictorSPX(ShooterConstants.kLeftFeederConstant);
-    public WPI_VictorSPX m_feederFollower = new WPI_VictorSPX(ShooterConstants.kRightFeederConstant);
+    private SparkMax m_shooter2 = new SparkMax(ShooterConstants.kShooter2Port, MotorType.kBrushless);
+    private WPI_VictorSPX m_shooter1 = new WPI_VictorSPX(ShooterConstants.kShooter1Port);
+    // private WPI_VictorSPX m_feederLeader = new WPI_VictorSPX(ShooterConstants.kLeftFeederConstant);
+    // private WPI_VictorSPX m_feederFollower = new WPI_VictorSPX(ShooterConstants.kRightFeederConstant);
 
     public ShooterSubsystem() {
-        m_feederFollower.follow(m_feederLeader);
+        // m_feederFollower.follow(m_feederLeader);
     }
 
     // *TODO figure out direction of motors relative to direction of current. */
-    public void setShooterMotorsPower(double shootpower, double feederpower) {
+    public void setShooterMotorsPower(double talonPower, double sparkPower) {
         /*
          * power left lead motor, right motor will
          * follow if set correctly in REV hardware correctly
          */
-        m_feederLeader.set(feederpower);
-        m_shooter.set(shootpower);
+        m_shooter2.set(sparkPower);
+        m_shooter1.set(talonPower);
 
     }
 
     public void StopMotors() {
         /* Stop shooter motors. */
-        m_feederLeader.set(0.0);
-        m_shooter.set(0.0);
+        m_shooter2.set(0.0);
+        m_shooter1.set(0.0);
 
-        m_feederLeader.stopMotor();
-        m_shooter.stopMotor();
+        m_shooter2.stopMotor();
+        m_shooter1.stopMotor();
 
     }
 }

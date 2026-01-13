@@ -19,26 +19,26 @@ public final class Constants {
   }
 
   public static class DriveConstants {
-    public static final int kLeftMotorPort1 = 1;
-    public static final int kLeftMotorPort2 = 2;
-    public static final int kRightMotorPort1 = 3;
-    public static final int kRightMotorPort2 = 4;
- 
+    public static final int kLeftMotorPort1 = 2;
+    public static final int kLeftMotorPort2 = 5;
+    public static final int kRightMotorPort1 = 6;
+    public static final int kRightMotorPort2 = 7;
+    public static final double kMulti = 0.7;
   }
 
   public static class IntakeConstants {
-    public static final int kLeadMotorPort = 5;
-    public static final int kFollowMotorPort = 6;
-    public static final double kMotorSpeed = 1.0;
+    public static final int kLeadMotorPort = 10;
+    public static final int kFollowMotorPort = 8; //spark
+    public static final double kMotorSpeedSpark = -0.7;
+    public static final double kMotorSpeedTalon = -0.5;
   }
 
   public static class ShooterConstants{
-    public static final int kLeftFeederConstant = 7;
-    public static final int kRightFeederConstant= 8;
-    public static final int kShooterConstant = 9;
+    public static final int kShooter2Port= 11;
+    public static final int kShooter1Port = 3;
     public static final double kMinShooterInput = 0.5;
-    public static final double kFeedingSpeed = 0.9;
-    public static final double kShootingSpeed = 1.0;
+    public static final double kSparkShootingSpeed = 0.8;
+    public static final double kTalonShootingSpeed = -0.8;
   }
 
   public static class ClimbConstants {// assuming dual action solenoids
@@ -47,7 +47,7 @@ public final class Constants {
   }
 
   public static class ConveyorConstants {
-    public static final int kLeadMotorPort = 10;
+    public static final int kLeadMotorPort = 9;
     public static final double kMotorSpeed = 1.0;
   }
 }

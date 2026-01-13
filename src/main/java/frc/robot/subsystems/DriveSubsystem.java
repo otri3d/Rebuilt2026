@@ -9,7 +9,7 @@ import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
     /* Motor controllers to move the tank */
-    public SparkMax m_leftMotorLead = new SparkMax(DriveConstants.kLeftMotorPort2, MotorType.kBrushless);
+    public SparkMax m_leftMotorLead = new SparkMax(DriveConstants.kLeftMotorPort1, MotorType.kBrushless);
     public SparkMax m_rightMotorLead = new SparkMax(DriveConstants.kRightMotorPort1, MotorType.kBrushless);
     
     private final DifferentialDrive m_Drive;
@@ -28,6 +28,7 @@ public class DriveSubsystem extends SubsystemBase {
     // F is for the forward speed
     // R is for the rotating speed
     public void Move(Double f, Double r)  {
-        m_Drive.tankDrive(f, r);
+        // System.out.println("Moving");
+        m_Drive.tankDrive(f * DriveConstants.kMulti, r * DriveConstants.kMulti);
     }
 }

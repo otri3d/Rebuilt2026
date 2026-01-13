@@ -34,14 +34,19 @@ public class ShooterCommand extends Command {
 
     @Override
     public void execute() {
+
+
         /* power intake consumer motor */
+
+        
         if( shooterSpeedSupplier.get() > ShooterConstants.kMinShooterInput)
         {
-            m_ShooterSubsystem.setShooterMotorsPower(ShooterConstants.kShootingSpeed, ShooterConstants.kFeedingSpeed);
+            m_ShooterSubsystem.setShooterMotorsPower(ShooterConstants.kTalonShootingSpeed, ShooterConstants.kSparkShootingSpeed);
         }
         else{
             m_ShooterSubsystem.StopMotors();
         }
+            
     }
 
     @Override
